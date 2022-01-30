@@ -1,6 +1,6 @@
 {
   "name": "ginlibs-events",
-  "version": "0.0.15",
+  "version": "1.0.0",
   "description": "",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -14,7 +14,7 @@
     "test": "jest",
     "test:cov": "jest --coverage --noStackTrace",
     "dev": "rollup -c rollup.config.js -w",
-    "build": "rollup -c rollup.config.js",
+    "build": "rimraf lib && rollup -c rollup.config.js",
     "commit": "git-cz",
     "del:lib": "rm -rf lib",
     "pub": "lerna publish"
@@ -54,13 +54,11 @@
     "glob": "^7.1.6",
     "husky": "^4.2.5",
     "jest": "^26.4.2",
-    "lerna": "^3.22.1",
     "lint-staged": "^10.4.2",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
     "rollup": "^2.23.0",
-    "rollup-plugin-add-global-ts": "^0.0.9",
-    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-add-global-ts": "^2.2.0",
     "rollup-plugin-terser": "^6.1.0",
     "rollup-plugin-typescript2": "^0.27.1",
     "ts-jest": "^26.3.0",
@@ -68,7 +66,7 @@
     "typescript": "^4.0.2"
   },
   "dependencies": {
-    "ginlibs-type-check": "^0.0.8"
+    "ginlibs-type-check": "^1.0.0"
   },
   "gitHead": "d5d2e52c476194fd1e3ec5e0108ffedda5dfac19"
 }

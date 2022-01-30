@@ -1,5 +1,11 @@
 import { isFunc } from 'ginlibs-type-check'
 
+interface EventOptions {
+  once?: boolean
+  done?: boolean
+  context?: any
+}
+
 class Events {
   private eventsMap: any = {}
   private context: any = {}
@@ -7,44 +13,70 @@ class Events {
     this.context = context || {}
   }
 
-  on = (taskName: string, handle: AnyFunction) => {
+  once = (taskName: string, handle: AnyFunction, context?: any) => {
+    return this.on(taskName, handle, {
+      once: true,
+      context,
+    })
+  }
+
+  on = (
+    taskName: string,
+    handle: AnyFunction,
+    options: Omit<EventOptions, 'done'> = {}
+  ) => {
     const eventsMap = this.eventsMap
-    const handleList = eventsMap[taskName] || []
+    const handleInfos = eventsMap[taskName] || []
     if (isFunc(handle)) {
-      handleList.push(handle)
+      handleInfos.push({ handle, options })
     }
-    eventsMap[taskName] = handleList
+    eventsMap[taskName] = handleInfos
     this.eventsMap = eventsMap
     return () => {
       this.off(taskName, handle)
     }
   }
 
-  emit = async (taskName: string, ...arg: any[]): Promise<any[]> => {
+  emit = (taskName: string, ...arg: any[]): any[] => {
     const eventsMap = this.eventsMap
-    const handleList = eventsMap[taskName] || []
-    const result = []
-    for (const it of handleList) {
-      const itRes = await it.apply(null, [...arg, this.context])
+    const handleInfos: any[] = eventsMap[taskName] || []
+    const result: any[] = []
+    for (const it of handleInfos) {
+      if (!it) {
+        continue
+      }
+      const { handle, options } = it || {}
+      const { once, done, context } = options || {}
+      if ((once && done) || !isFunc(handle)) {
+        continue
+      }
+      const itRes = handle.apply(null, [
+        ...arg,
+        { ...this.context, ...(context || {}) },
+      ])
       result.push(itRes)
+      if (options && once) {
+        it.options.done = true
+      }
     }
-    if (result.length <= 1) {
-      return result[0]
-    } else {
-      return result
-    }
+    eventsMap[taskName] = handleInfos.filter((it) => {
+      const { options } = it || {}
+      const { once, done } = options || {}
+      return !once || !done
+    })
+    return result
   }
 
   off = (taskName: string, handle?: AnyFunction) => {
     const eventsMap = this.eventsMap || {}
-    let handleList = eventsMap[taskName] || []
+    let handleInfos = eventsMap[taskName] || []
     if (!isFunc(handle)) {
       eventsMap[taskName] = []
     } else {
-      handleList = handleList.filter((eventFn) => {
-        return eventFn !== handle
+      handleInfos = handleInfos.filter((it) => {
+        return (it || {}).handle !== handle
       })
-      eventsMap[taskName] = handleList
+      eventsMap[taskName] = handleInfos
     }
     this.eventsMap = eventsMap
   }

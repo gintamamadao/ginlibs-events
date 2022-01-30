@@ -6,11 +6,11 @@ describe('事件监听派发', () => {
     const key = 'test1'
     events.on(key, () => key)
     const res = await events.emit(key)
-    expect(res).toBe(key)
+    expect(res[0]).toBe(key)
 
     events.off(key)
     const res2 = await events.emit(key)
-    expect(res2).toBe(undefined)
+    expect(res2[0]).toBe(undefined)
   })
   test('多个事件注册', async () => {
     const events = new Events()
@@ -28,6 +28,6 @@ describe('事件监听派发', () => {
 
     events.off(key, handle1)
     const res2 = await events.emit(key)
-    expect(res2).toBe('b')
+    expect(res2[0]).toBe('b')
   })
 })
