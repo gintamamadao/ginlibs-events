@@ -6,7 +6,7 @@ interface EventOptions {
   context?: any
 }
 
-class Events {
+export class Events {
   private eventsMap: any = {}
   private context: any = {}
   constructor(context?: any) {
