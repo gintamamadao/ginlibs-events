@@ -1,6 +1,6 @@
 {
   "name": "ginlibs-events",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -66,7 +66,7 @@
     "typescript": "^4.0.2"
   },
   "dependencies": {
-    "ginlibs-type-check": "^1.0.0"
+    "ginlibs-type-check": "^2.0.0"
   },
   "gitHead": "d5d2e52c476194fd1e3ec5e0108ffedda5dfac19"
 }

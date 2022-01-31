@@ -21,7 +21,7 @@ specifiers:
   eslint-import-resolver-typescript: ^2.2.0
   eslint-plugin-import: ^2.22.0
   eslint-plugin-prettier: ^3.1.4
-  ginlibs-type-check: ^1.0.0
+  ginlibs-type-check: ^2.0.0
   glob: ^7.1.6
   husky: ^4.2.5
   jest: ^26.4.2
@@ -37,7 +37,7 @@ specifiers:
   typescript: ^4.0.2
 
 dependencies:
-  ginlibs-type-check: 1.0.0
+  ginlibs-type-check: 2.0.0
 
 devDependencies:
   '@babel/core': 7.14.0
@@ -3721,8 +3721,8 @@ packages:
     resolution: {integrity: sha512-RAMjwkrU68ZfL/2kfxNhVe7Ym0ATILo9z7ZBEfMh0kXSNyhSBkwHChnBNdkReSdVGt5zHjLPeyIPonFEdP35xA==}
     dev: true
 
-  /ginlibs-type-check/1.0.0:
-    resolution: {integrity: sha512-63wyzErvsMS4m5yjY+t0cO32Wb6Alaeh6o/bS6jX8XnRmi7xEHDLeyz54/ubZB7znKmCJ2lk+a4j3OGJh/TnFg==}
+  /ginlibs-type-check/2.0.0:
+    resolution: {integrity: sha512-+LmirvVtGkR5SeO1kNfHdcDpsniDOGZq6iy6VN01ZwYdJ1q0ogNpYigmtRHBH+k/QRhaSdo2m/5XQsbXeTWd/g==}
     dev: false
 
   /git-raw-commits/2.0.10:
