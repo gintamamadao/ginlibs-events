@@ -13,6 +13,10 @@ export class Events {
     this.context = context || {}
   }
 
+  setContext = (context: any) => {
+    this.context = Object.assign(this.context, context)
+  }
+
   once = (taskName: string, handle: AnyFunction, context?: any) => {
     return this.on(taskName, handle, {
       once: true,
